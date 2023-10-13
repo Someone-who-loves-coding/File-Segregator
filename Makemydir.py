@@ -1,11 +1,15 @@
 import os
-from datetime import datetime
+import datetime
 
 def makemydir() :
-    now = datetime.now()
-    s =  str(now.strftime("%d/%m/%Y"))
+    s =  str(datetime.date.today())
+    DownDir = "Downloads"
+    os.chdir(DownDir)
     try:
-        os.makedirs(s)
+        if os.path.exists(s):
+            pass
+        else :
+            os.makedirs(s)
     except:
         pass
     os.chdir(s)
