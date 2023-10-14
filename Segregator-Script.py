@@ -1,5 +1,5 @@
 import os
-import datetime
+from datetime import datetime 
 from Makemydir import makemydir
 from shutil import move
 # directory paths
