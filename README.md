@@ -1,5 +1,3 @@
-Sure, here's a README file for your GitHub repository:
-
 ```
 # File Segregator Script
 
