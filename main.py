@@ -1,9 +1,10 @@
 import os
-import makemydir
+import Makemydir
 import Segregator_Script
+import settings
 
 if __name__ == "__main__":
-    new_dir = makemydir.makemydir()
+    new_dir = Makemydir.makemydir()
     print(f"Current working directory: {new_dir}")
 
     root_dir = os.path.join(settings.ROOT_DIR, new_dir)
