@@ -35,6 +35,7 @@ def move_files(files, root_dir):
     software_types = ('.exe', '.pkg', '.dmg')
 
     for file in files:
+        
         # Determine file type and move accordingly
         if file.endswith(doc_types):
             dest_dir = documents_dir
