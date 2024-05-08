@@ -1,5 +1,6 @@
 import os
 import datetime
+import settings
 
 def makemydir():
     """
@@ -13,8 +14,8 @@ def makemydir():
         current_date = str(datetime.date.today())
         
         # Set the directory name and change the directory to 'Downloads'
-        dir_name = os.path.join('Downloads', current_date)
-        os.chdir('Downloads')
+        dir_name = os.path.join(settings.ROOT_DIR, current_date)
+        os.chdir(settings.ROOT_DIR)
         
         # Create the directory if it doesn't exist
         if not os.path.exists(dir_name):
