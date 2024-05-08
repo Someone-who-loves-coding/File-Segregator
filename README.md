@@ -13,13 +13,13 @@ This script helps organize files in the Downloads directory by segregating them 
 1. Clone the repository to your local machine:
 
 ```
-git clone https://github.com/your-username/file-segregator-script.git
+git clone https://github.com/Someone-who-loves-coding/File-Segregator.git
 ```
 
 2. Navigate to the cloned directory:
 
 ```
-cd file-segregator-script
+cd File-Segregator
 ```
 
 3. Install dependencies:
@@ -60,5 +60,3 @@ The 'Setting.py' file contains directory paths and file types used by the 'Segre
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 ```
-
-Make sure to replace `"your-username"` with your actual GitHub username in the clone URL. You can also customize the installation and usage instructions based on your preferences.
