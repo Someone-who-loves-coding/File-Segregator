@@ -1,3 +1,5 @@
+Sure! Here is the content for the `README.md` file:
+
 ```markdown
 # File Segregator Script
 
@@ -7,6 +9,7 @@ This script helps organize files in the Downloads directory by segregating them 
 
 - Python 3.x
 - Windows (This script is designed for Windows environment)
+```
 
 ## Installation
 
@@ -81,3 +84,6 @@ No additional settings are required. The script automatically detects the Downlo
 - Ensure you run `setup_task.py` with administrative privileges to create the Task Scheduler entry.
 - The script will automatically handle starting at system startup, monitoring the Downloads folder, and segregating files without any manual intervention from the user.
 - Make sure the scripts are all located in the same directory for proper execution.
+```
+
+Save this content into a file named `README.md` in your project directory.
