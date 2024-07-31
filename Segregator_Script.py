@@ -1,49 +1,45 @@
 import os
-from shutil import move
-import settings
+import shutil
+from settings import ROOT_DIR, DATE_DIR, IMAGE_DIR, DOCUMENTS_DIR, OTHERS_DIR, SOFTWARE_DIR
+from settings import IMAGE_EXTENSIONS, DOCUMENT_EXTENSIONS, SOFTWARE_EXTENSIONS
 
-def get_non_hidden_files_except_current_file(root_dir):
-    """
-    Get a list of non-hidden files in the specified directory, excluding the current file.
+# Function to create directory if not exists
+def create_directory(path):
+    if not os.path.exists(path):
+        os.makedirs(path)
 
-    Args:
-    - root_dir (str): The directory path to search for files.
+# Function to move file to respective directory
+def move_file(file, src_dir, dest_dir):
+    src_path = os.path.join(src_dir, file)
+    dest_path = os.path.join(dest_dir, file)
+    shutil.move(src_path, dest_path)
 
-    Returns:
-    - list: A list of non-hidden file names.
+# Ensure the date directory exists
+if not os.path.exists(DATE_DIR):
+    os.makedirs(DATE_DIR)
 
-    """
-    current_file = os.path.basename(__file__)
-    return [f for f in os.listdir(root_dir) if os.path.isfile(os.path.join(root_dir, f)) and not f.startswith('.') and not f == current_file]
+# Iterate through the files in the Downloads directory
+for file in os.listdir(ROOT_DIR):
+    file_path = os.path.join(ROOT_DIR, file)
+    
+    # Skip if it's a directory
+    if os.path.isdir(file_path):
+        continue
+    
+    # Check file extension and move to respective directory inside the date folder
+    _, file_extension = os.path.splitext(file)
+    
+    if file_extension.lower() in IMAGE_EXTENSIONS:
+        create_directory(IMAGE_DIR)
+        move_file(file, ROOT_DIR, IMAGE_DIR)
+    elif file_extension.lower() in DOCUMENT_EXTENSIONS:
+        create_directory(DOCUMENTS_DIR)
+        move_file(file, ROOT_DIR, DOCUMENTS_DIR)
+    elif file_extension.lower() in SOFTWARE_EXTENSIONS:
+        create_directory(SOFTWARE_DIR)
+        move_file(file, ROOT_DIR, SOFTWARE_DIR)
+    else:
+        create_directory(OTHERS_DIR)
+        move_file(file, ROOT_DIR, OTHERS_DIR)
 
-def move_files(files, root_dir):
-    """
-    Move files to respective directories based on their file types.
-
-    Args:
-    - files (list): List of file names to be moved.
-    - root_dir (str): The root directory where the files are located.
-
-    """
-    for file in files:
-        # Determine file type and move accordingly
-        if file.endswith(settings.DOC_TYPES):
-            dest_dir = settings.DOCUMENTS_DIR
-        elif file.endswith(settings.IMG_TYPES):
-            dest_dir = settings.IMAGE_DIR
-        elif file.endswith(settings.SOFTWARE_TYPES):
-            dest_dir = settings.SOFTWARE_DIR
-        else:
-            dest_dir = settings.OTHERS_DIR
-        
-        # Move file to destination directory
-        source_path = os.path.join(root_dir, file)
-        dest_path = os.path.join(dest_dir, file)
-        move(source_path, dest_path)
-        print(f'File {file} moved to {dest_dir}')
-
-if __name__ == "__main__":
-    user = os.getenv('USER')
-    root_dir = settings.ROOT_DIR
-    files = get_non_hidden_files_except_current_file(root_dir)
-    move_files(files, root_dir)
+print("Files have been segregated successfully.")

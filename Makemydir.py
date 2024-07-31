@@ -1,38 +1,27 @@
 import os
-import datetime
-import settings
+from datetime import datetime
+import platform
+import subprocess
 
-def makemydir():
-    """
-    Create a directory with the current date within the 'Downloads' directory and change the working directory to it.
+# Determine the current operating system
+current_os = platform.system()
 
-    Returns:
-    - str: The path of the newly created directory.
-    """
-    try:
-        # Get the current date
-        current_date = str(datetime.date.today())
-        
-        # Set the directory name and change the directory to 'Downloads'
-        dir_name = os.path.join(settings.ROOT_DIR, current_date)
-        os.chdir(settings.ROOT_DIR)
-        
-        # Create the directory if it doesn't exist
-        if not os.path.exists(dir_name):
-            os.makedirs(dir_name)
-            print(f"Directory '{dir_name}' created successfully.")
-        else:
-            print(f"Directory '{dir_name}' already exists.")
-        
-        # Change the working directory to the newly created directory
-        os.chdir(dir_name)
-        
-        return os.getcwd()  # Return the path of the newly created directory
-    
-    except Exception as e:
-        print(f"An error occurred while creating the directory: {e}")
+# Get the username based on the operating system
+if current_os == "Windows":
+    USER = os.getenv('USERNAME')
+else:  # Assume a Unix-like system (Linux, macOS, etc.)
+    USER = os.getenv('USER')
 
-# Example usage:
-if __name__ == "__main__":
-    new_dir = makemydir()
-    print(f"Current working directory: {new_dir}")
+# Define the root directory (Downloads)
+ROOT_DIR = os.path.join(os.path.expanduser('~'), 'Downloads')
+
+# Create a date folder within the Downloads directory
+today_date = datetime.now().strftime('%Y-%m-%d')
+DATE_DIR = os.path.join(ROOT_DIR, today_date)
+if not os.path.exists(DATE_DIR):
+    os.makedirs(DATE_DIR)
+
+print(f"Date directory created: {DATE_DIR}")
+
+# Call the segregator-script.py
+subprocess.run(["python", "Segregator_Script.py"])
