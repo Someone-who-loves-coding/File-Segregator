@@ -1,3 +1,4 @@
+```markdown
 # File Segregator Script
 
 This script helps organize files in the Downloads directory by segregating them into respective subdirectories based on their file types.
@@ -5,66 +6,78 @@ This script helps organize files in the Downloads directory by segregating them 
 ## Prerequisites
 
 - Python 3.x
-- macOS (This script is designed for a macOS environment)
+- Windows (This script is designed for Windows environment)
 
 ## Installation
 
-1. **Clone the repository to your local machine:**
+1. Clone the repository to your local machine:
 
-    ```sh
-    git clone https://github.com/Someone-who-loves-coding/File-Segregator.git
-    ```
+```bash
+git clone https://github.com/Someone-who-loves-coding/File-Segregator.git
+```
 
-2. **Navigate to the cloned directory:**
+2. Navigate to the cloned directory:
 
-    ```sh
-    cd File-Segregator
-    ```
+```bash
+cd File-Segregator
+```
 
-3. **Install dependencies:**
+3. Install dependencies:
 
-    ```sh
-    pip install -r requirements.txt
-    ```
+```bash
+pip install -r requirements.txt
+```
 
 ## Usage
 
-### 1. Makemydir.py
+### 1. Setup Task Scheduler
 
-This script creates a directory with the current date within the 'Downloads' directory and changes the working directory to it.
+This script sets up a Task Scheduler entry to automatically run the file segregation script at system startup.
 
-To run the script, execute the following command:
+To set up the Task Scheduler entry, run the following command with administrative privileges:
 
-    ```sh
-    python makemydir.py
-    ```
+```bash
+python setup_task.py
+```
 
-### 2. Segregator-Script.py
+To remove the Task Scheduler entry, run:
 
-This script segregates files in the 'Downloads' directory into respective subdirectories based on their file types.
+```bash
+python setup_task.py remove
+```
 
-Before running the script, ensure that the `makemydir.py` script has been executed to create the necessary directory structure.
+### 2. Monitor Downloads Folder
 
-To run the script, execute the following command:
+The `monitor_downloads.py` script monitors the Downloads folder and triggers the file segregation script whenever a new file is downloaded.
 
-    ```sh
-    python segregator-script.py
-    ```
+This script will be automatically started at system startup after setting up the Task Scheduler entry. You do not need to run it manually.
+
+### 3. Directory Creation and File Segregation
+
+The `makemydir.py` script creates a directory with the current date within the 'Downloads' directory and segregates files into respective subdirectories based on their file types.
+
+This script is automatically called by `monitor_downloads.py` when a new file is detected.
+
+## Scripts
+
+### setup_task.py
+
+This script sets up and removes the Task Scheduler entry to run `monitor_downloads.py` at system startup.
+
+### monitor_downloads.py
+
+This script monitors the Downloads directory for new files and runs `makemydir.py` to segregate them.
+
+### makemydir.py
+
+This script creates a directory with the current date within the 'Downloads' directory and segregates files into respective subdirectories based on their file types.
 
 ## Settings
 
-The `Setting.py` file contains directory paths and file types used by the `Segregator-Script.py` script. Modify these settings as needed.
+No additional settings are required. The script automatically detects the Downloads directory and segregates files based on their extensions.
 
-Example `Setting.py` file:
+### Additional Notes
 
-    ```python
-    DOWNLOADS_DIR = "/Users/YourUsername/Downloads"
-    FILE_TYPES = {
-        "Images": [".jpg", ".jpeg", ".png", ".gif"],
-        "Documents": [".pdf", ".docx", ".txt"],
-        "Videos": [".mp4", ".mov", ".avi"],
-        # Add more file types as needed
-    }
-    ```
-
-Modify the paths and file types as per your requirements.
+- Ensure you run `setup_task.py` with administrative privileges to create the Task Scheduler entry.
+- The script will automatically handle starting at system startup, monitoring the Downloads folder, and segregating files without any manual intervention from the user.
+- Make sure the scripts are all located in the same directory for proper execution.
